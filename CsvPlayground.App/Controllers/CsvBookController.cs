@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CsvPlayground.App.Dto;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace CsvPlayground.App.Controllers
 {
 
@@ -12,10 +13,9 @@ namespace CsvPlayground.App.Controllers
     {
         [HttpPost]
         [Route("import")]
-        public IActionResult Import([FromBody]List<BookDto> request)
+        public IActionResult Import([FromBody] List<BookDto> request)
         {
-            Console.Write(request.ToString());
-            return Ok();
+            return Ok(request);
         }
 
         [HttpGet]
@@ -23,7 +23,7 @@ namespace CsvPlayground.App.Controllers
         [Produces("text/csv")]
         public IActionResult GetCsv()
         {
-            return Ok(new List<BookDto> { new BookDto { Name = "teste" } });
+            return Ok(new List<BookDto> { new BookDto { Name = "test", Categories = new List<string> { "category test", "category test1" } } });
         }
     }
 }
