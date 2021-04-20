@@ -3,10 +3,10 @@
 ## Todo list
 
 - [x] Implement CSV interface
-  - [x]  -- Implement [WebApiContrib.Core.Formatter.Csv][WebApiContrib] --
-  - [x]  Implement [custom formarter][CustomFormater]  
+  - [x]  ~~Implement [WebApiContrib.Core.Formatter.Csv][WebApiContrib] removed~~
+  - [x]  Implement [custom formatter][CustomFormater]  
   - [x]  Implement [CSV Helper][CsvHelper]
-  - [x]  Create [custom typer converter][CustomConverter] to property list
+  - [x]  Create [custom type converter][CustomConverter] to property list
   
 - [ ] Add Fluent validation 
 
