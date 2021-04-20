@@ -8,9 +8,13 @@
   - [x]  Implement [CSV Helper][CsvHelper]
   - [x]  Create [custom type converter][CustomConverter] to property list
   
-- [ ] Add Fluent validation 
+- [x] Add [Fluent validation][FluentValidation]
+  - [x]  Implement book [collection validator][CollectionValidator]
+  - [ ]  Implement async validator
 
 - [ ] Analyze performance tradeoff between JSON converting and CSV converting
+
+- [ ] Document all
 
   
 
@@ -19,3 +23,5 @@
 
 [CsvHelper]:https://joshclose.github.io/CsvHelper/
 [CustomConverter]:https://joshclose.github.io/CsvHelper/examples/configuration/class-maps/type-conversion
+[FluentValidation]:https://docs.fluentvalidation.net/en/latest/index.html
+[CollectionValidator]:https://docs.fluentvalidation.net/en/latest/collections.html
