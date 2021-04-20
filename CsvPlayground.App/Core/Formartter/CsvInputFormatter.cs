@@ -2,15 +2,12 @@ using System;
 using System.Collections;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CsvHelper;
 using CsvHelper.Configuration;
-using CsvPlayground.App.Dto;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Net.Http.Headers;
-using TinyCsvParser;
 
 namespace CsvPlayground.App.Core.Formatter
 {
