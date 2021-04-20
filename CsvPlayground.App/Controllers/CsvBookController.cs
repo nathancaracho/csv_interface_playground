@@ -19,11 +19,11 @@ namespace CsvPlayground.App.Controllers
         }
 
         [HttpGet]
-        [Route("data.csv")]
+        [Route("default.csv")]
         [Produces("text/csv")]
         public IActionResult GetCsv()
         {
-            return Ok(new List<BookDto> { new BookDto { Name = "test", Categories = new List<string> { "category test", "category test1" } } });
+            return Ok(new List<BookDto> { new BookDto()});
         }
     }
 }
