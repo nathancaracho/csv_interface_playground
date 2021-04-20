@@ -1,5 +1,10 @@
 using System;
+using System.Collections.Generic;
 using CsvPlayground.App.Core.Formatter;
+using CsvPlayground.App.Dto;
+using CsvPlayground.App.Validators;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
@@ -28,15 +33,18 @@ namespace CsvPlayground.App
                 options.AllowSynchronousIO = true;
             });
             services.AddMvc(options =>
-            {
-                options.InputFormatters.Insert(0, new CsvInputFormatter());
-                options.OutputFormatters.Insert(0, new CsvOutputFormatter());
-            }
-            );
+                {
+                    options.InputFormatters.Insert(0, new CsvInputFormatter());
+                    options.OutputFormatters.Insert(0, new CsvOutputFormatter());
+                }
+            ).AddFluentValidation();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CsvPlayground.App", Version = "v1" });
             });
+
+            services.AddTransient<IValidator<List<BookDto>>, BooksValidator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
