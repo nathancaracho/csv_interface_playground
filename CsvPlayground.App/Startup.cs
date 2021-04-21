@@ -32,12 +32,10 @@ namespace CsvPlayground.App
             {
                 options.AllowSynchronousIO = true;
             });
-            services.AddMvc(options =>
-                {
-                    options.InputFormatters.Insert(0, new CsvInputFormatter());
-                    options.OutputFormatters.Insert(0, new CsvOutputFormatter());
-                }
-            ).AddFluentValidation();
+
+            services.AddMvc()
+                .AddCsvFormatter()
+                .AddFluentValidation();
 
             services.AddSwaggerGen(c =>
             {
