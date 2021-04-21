@@ -13,7 +13,7 @@ namespace CsvPlayground.App.Controllers
     {
         [HttpPost]
         [Route("import")]
-        public IActionResult Import([FromBody] List<BookDto> request)
+        public IActionResult Import([FromBody] IEnumerable<BookDto> request)
         {
             return Ok(request);
         }
@@ -23,7 +23,7 @@ namespace CsvPlayground.App.Controllers
         [Produces("text/csv")]
         public IActionResult GetCsv()
         {
-            return Ok(new List<BookDto> { new BookDto()});
+            return Ok(new List<BookDto> { new BookDto() });
         }
     }
 }

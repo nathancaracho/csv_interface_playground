@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace CsvPlayground.App.Validators
 {
-    public class BooksValidator : AbstractValidator<List<BookDto>>
+    public class BooksValidator : AbstractValidator<IEnumerable<BookDto>>
     {
         public BooksValidator()
         {

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
@@ -19,6 +20,9 @@ namespace CsvPlayground.App.Core.Formatter
             SupportedEncodings.Add(Encoding.UTF8);
             SupportedEncodings.Add(Encoding.Unicode);
         }
+        public override bool CanRead(InputFormatterContext context) =>
+            context.ModelType.GetInterface("IEnumerable") != null;
+
         public override Task<InputFormatterResult> ReadRequestBodyAsync(InputFormatterContext context, Encoding encoding)
         {
             var config = new CsvConfiguration(CultureInfo.InvariantCulture)
@@ -27,15 +31,21 @@ namespace CsvPlayground.App.Core.Formatter
                 Delimiter = ";"
 
             };
+
+            var type = context.ModelType.GetGenericArguments()[0];
+
             using var reader = new StreamReader(context.HttpContext.Request.Body, encoding);
 
             using var csv = new CsvReader(reader, config);
-            var records = (IList)Activator.CreateInstance(context.ModelType);
+            var records = (IList)Activator.CreateInstance(typeof(List<>).MakeGenericType(type));
 
             while (csv.Read())
-                records.Add(csv.GetRecord(context.ModelType.GetGenericArguments()[0]));
+                records.Add(csv.GetRecord(type));
+
             return InputFormatterResult.SuccessAsync(records);
         }
+
+
     }
 
 
