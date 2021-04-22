@@ -13,6 +13,11 @@ namespace CsvPlayground.App.Core.Formatter
 {
     public class CsvOutputFormatter : TextOutputFormatter
     {
+        private readonly CsvConfiguration _config = new(CultureInfo.InvariantCulture)
+        {
+            HasHeaderRecord = true,
+            Delimiter = ";"
+        };
         public CsvOutputFormatter()
         {
             SupportedMediaTypes.Add(MediaTypeHeaderValue.Parse("text/csv"));
@@ -21,15 +26,8 @@ namespace CsvPlayground.App.Core.Formatter
         }
         public override async Task WriteResponseBodyAsync(OutputFormatterWriteContext context, Encoding selectedEncoding)
         {
-            var config = new CsvConfiguration(CultureInfo.InvariantCulture)
-            {
-                HasHeaderRecord = true,
-                Delimiter = ";"
-
-            };
-
             var writer = new StringWriter();
-            using var csv = new CsvWriter(writer, config);
+            using var csv = new CsvWriter(writer, _config);
             csv.WriteRecords((IList)context.Object);
             csv.Flush();
             await context.HttpContext.Response.WriteAsync(writer.ToString(), selectedEncoding);

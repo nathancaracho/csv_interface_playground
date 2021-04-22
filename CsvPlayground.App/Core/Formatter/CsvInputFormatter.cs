@@ -14,6 +14,11 @@ namespace CsvPlayground.App.Core.Formatter
 {
     public class CsvInputFormatter : TextInputFormatter
     {
+        private readonly CsvConfiguration _config = new(CultureInfo.InvariantCulture)
+        {
+            HasHeaderRecord = true,
+            Delimiter = ";"
+        };
         public CsvInputFormatter()
         {
             SupportedMediaTypes.Add(MediaTypeHeaderValue.Parse("text/csv"));
@@ -25,18 +30,12 @@ namespace CsvPlayground.App.Core.Formatter
 
         public override Task<InputFormatterResult> ReadRequestBodyAsync(InputFormatterContext context, Encoding encoding)
         {
-            var config = new CsvConfiguration(CultureInfo.InvariantCulture)
-            {
-                HasHeaderRecord = true,
-                Delimiter = ";"
-
-            };
 
             var type = context.ModelType.GetGenericArguments()[0];
 
             using var reader = new StreamReader(context.HttpContext.Request.Body, encoding);
 
-            using var csv = new CsvReader(reader, config);
+            using var csv = new CsvReader(reader, _config);
             var records = (IList)Activator.CreateInstance(typeof(List<>).MakeGenericType(type));
 
             while (csv.Read())
