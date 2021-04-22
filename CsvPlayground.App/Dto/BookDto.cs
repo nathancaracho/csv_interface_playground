@@ -20,7 +20,17 @@ namespace CsvPlayground.App.Dto
         [Name("categories")]
         [TypeConverter(typeof(SlugListConverter))]
         public IEnumerable<string> Categories { get; set; }
+
+        [Name("rules")]
+        [TypeConverter(typeof(ExhibitionRuleListConverter))]
+        public IEnumerable<ExhibitionRule> Rules { get; set; }
+
     }
 
+    public class ExhibitionRule
+    {
+        public string Code { get; set; }
+        public string Value { get; set; }
+    }
 
 }
