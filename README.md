@@ -10,13 +10,12 @@
   
 - [x] Add [Fluent validation][FluentValidation]
   - [x]  Implement book [collection validator][CollectionValidator]
-  - [ ]  Implement async validator
+  - [ ]  ~~Implement async validator~~
 
 - [ ] Analyze performance tradeoff between JSON converting and CSV converting
 
 - [ ] Document all
 
-  
 
 [WebApiContrib]:https://github.com/WebApiContrib/WebAPIContrib.Core/tree/master/src/WebApiContrib.Core.Formatter.Csv
 [CustomFormater]: https://docs.microsoft.com/en-us/aspnet/core/web-api/advanced/custom-formatters?view=aspnetcore-5.0
