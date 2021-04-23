@@ -28,7 +28,7 @@ namespace CsvPlayground.App.Core.Formatter
         public override bool CanRead(InputFormatterContext context) =>
             context.ModelType.GetInterface("IEnumerable") != null;
 
-        public override Task<InputFormatterResult> ReadRequestBodyAsync(InputFormatterContext context, Encoding encoding)
+        public override async Task<InputFormatterResult> ReadRequestBodyAsync(InputFormatterContext context, Encoding encoding)
         {
 
             var type = context.ModelType.GetGenericArguments()[0];
@@ -38,10 +38,10 @@ namespace CsvPlayground.App.Core.Formatter
             using var csv = new CsvReader(reader, _config);
             var records = (IList)Activator.CreateInstance(typeof(List<>).MakeGenericType(type));
 
-            while (csv.Read())
+            while (await csv.ReadAsync())
                 records.Add(csv.GetRecord(type));
 
-            return InputFormatterResult.SuccessAsync(records);
+            return await InputFormatterResult.SuccessAsync(records);
         }
 
 

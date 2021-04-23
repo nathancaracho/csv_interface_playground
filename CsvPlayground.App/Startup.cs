@@ -28,12 +28,8 @@ namespace CsvPlayground.App
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<KestrelServerOptions>(options =>
-            {
-                options.AllowSynchronousIO = true;
-            });
 
-            services.AddMvc()
+            services.AddControllers()
                 .AddCsvFormatter()
                 .AddFluentValidation();
 
